@@ -1,0 +1,68 @@
+positions:
+  - id: 0
+    name: Software Engineer
+    department: Engineering
+    salary: 5000.0
+    vacancies: 10
+    requirements:
+      age: 18
+      education: higher
+      speciality: IT
+  - id: 1
+    name: Systems Manager
+    department: Engineering
+    salary: 5250.0
+    vacancies: 1
+    requirements:
+      age: 20
+      education: higher
+      speciality: IT
+  - id: 2
+    name: Janitor
+    department: Maintenance
+    salary: 2500.0
+    vacancies: 3
+    requirements:
+      age: 18
+      education: secondary
+      speciality: null
+people:
+  - id: 0
+    first_name: John
+    second_name: Doe
+    middle_name: null
+    age: 23
+    education: higher
+    speciality: IT
+    position_id: 0
+  - id: 1
+    first_name: Foo
+    second_name: Bar
+    middle_name: Baz
+    age: 18
+    education: higher
+    speciality: IT
+    position_id: 0
+  - id: 2
+    first_name: Will
+    second_name: Smith
+    middle_name: null
+    age: 20
+    education: secondary
+    speciality: Maintenance
+    position_id: 2
+  - id: 3
+    first_name: Sam
+    second_name: Ployed
+    middle_name: Unem
+    age: 25
+    education: higher
+    speciality: IT
+    position_id: null
+  - id: 4
+    first_name: Yung
+    second_name: Guyi
+    middle_name: null
+    age: 16
+    education: secondary
+    speciality: null
