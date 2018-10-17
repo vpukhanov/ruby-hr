@@ -11,7 +11,7 @@ class Core
   def run
     puts 'RubyCorp HR'
     puts "Manage RubyCorp's employees and positions\n"
-    loop main_menu
+    loop { main_menu }
   end
 
   private

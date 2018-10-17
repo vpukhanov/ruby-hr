@@ -1,14 +1,10 @@
 # Data-class that holds information about the requirements for the specific
 # position. Contains helper methods to check if person satisfies the conditions
 class Requirement
-  def initialize(age, education, speciality)
-    @age = age
-    @education = education
-    @speciality = speciality
-  end
-
-  def self.from_yaml(yaml)
-    Requirement.new(yaml['age'], yaml['education'], yaml['speciality'])
+  def initialize(options)
+    @age = options['age']
+    @education = options['education']
+    @speciality = options['speciality']
   end
 
   def satisfied?(person)

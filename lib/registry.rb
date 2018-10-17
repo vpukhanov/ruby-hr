@@ -37,7 +37,7 @@ class Registry
     if empty?
       0
     else
-      last_item = max(&:id)
+      last_item = max_by(&:id)
       last_item.id + 1
     end
   end

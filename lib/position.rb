@@ -5,21 +5,13 @@ require_relative 'requirement'
 class Position
   attr_reader :id, :name, :department, :salary, :vacancies, :requirements
 
-  def initialize(id, name, department, salary, vacancies, requirements)
-    @id = id
-    @name = name
-    @department = department
-    @salary = salary
-    @vacancies = vacancies
-    @requirements = requirements
-  end
-
-  def self.from_yaml(yaml)
-    Position.new(
-      yaml['id'],
-      yaml['name'], yaml['department'], yaml['salary'], yaml['vacancies'],
-      Requirement.from_yaml(yaml['requirements'])
-    )
+  def initialize(options)
+    @id = options['id']
+    @name = options['name']
+    @department = options['department']
+    @salary = options['salary']
+    @vacancies = options['vacancies']
+    @requirements = Requirement.new(options['requirements'])
   end
 
   def add_vacancy!

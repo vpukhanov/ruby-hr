@@ -6,7 +6,7 @@ require_relative 'database'
 # from and to the files
 module DAO
   def self.read_db
-    Database.from_yaml(YAML.safe_load(read_db_file))
+    Database.new(YAML.safe_load(read_db_file))
   end
 
   def self.read_db_file

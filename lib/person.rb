@@ -4,25 +4,15 @@ class Person
   attr_reader :id, :first_name, :second_name, :middle_name,
               :age, :education, :speciality, :position_id
 
-  def initialize(id,
-                 first_name, second_name, middle_name,
-                 age, education, speciality, position_id)
-    @id = id
-    @first_name = first_name
-    @second_name = second_name
-    @middle_name = middle_name
-    @age = age
-    @education = education
-    @speciality = speciality
-    @position_id = position_id
-  end
-
-  def self.from_yaml(yaml)
-    Person.new(
-      yaml['id'],
-      yaml['first_name'], yaml['second_name'], yaml['middle_name'],
-      yaml['age'], yaml['education'], yaml['speciality'], yaml['position_id']
-    )
+  def initialize(options)
+    @id = options['id']
+    @first_name = options['first_name']
+    @second_name = options['second_name']
+    @middle_name = options['middle_name']
+    @age = options['age']
+    @education = options['education']
+    @speciality = options['speciality']
+    @position_id = options['position_id']
   end
 
   def employed?

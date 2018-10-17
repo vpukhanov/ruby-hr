@@ -3,15 +3,14 @@ require_relative 'position'
 
 # Holds the collection of positions in the database and provides helper methods
 class PositionsRegistry < Registry
-  def self.from_yaml(yaml)
-    registry = PositionsRegistry.new
-    yaml['positions'].each { |p| registry.add(Position.from_yaml(p)) }
-    registry
+  def initialize(yaml)
+    super()
+    yaml['positions'].each { |p| add(Position.new(p)) }
   end
 
   def add_position_from_yaml(yaml)
     ensure_id!(yaml)
-    add(Position.from_yaml(yaml))
+    add(Position.new(yaml))
   end
 
   def add_vacancy(id)

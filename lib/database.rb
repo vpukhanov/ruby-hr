@@ -4,16 +4,9 @@ require_relative 'positions_registry'
 # Database is a layer between core of the application and data registries,
 # provides additional helper methods to filter and sort their data
 class Database
-  def initialize(people_registry, positions_registry)
-    @people_registry = people_registry
-    @positions_registry = positions_registry
-  end
-
-  def self.from_yaml(yaml)
-    Database.new(
-      PeopleRegistry.from_yaml(yaml),
-      PositionsRegistry.from_yaml(yaml)
-    )
+  def initialize(yaml)
+    @people_registry = PeopleRegistry.new(yaml)
+    @positions_registry = PositionsRegistry.new(yaml)
   end
 
   def positions

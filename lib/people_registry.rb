@@ -3,15 +3,14 @@ require_relative 'person'
 
 # Holds the collection of people in the database and provides helper methods
 class PeopleRegistry < Registry
-  def self.from_yaml(yaml)
-    registry = PeopleRegistry.new
-    yaml['people'].each { |p| registry.add(Person.from_yaml(p)) }
-    registry
+  def initialize(yaml)
+    super()
+    yaml['people'].each { |p| add(Person.new(p)) }
   end
 
   def add_person_from_yaml(yaml)
     ensure_id!(yaml)
-    add(Person.from_yaml(yaml))
+    add(Person.new(yaml))
   end
 
   def unemploy_position(position_id)
