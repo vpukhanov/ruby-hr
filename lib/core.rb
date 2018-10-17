@@ -11,22 +11,22 @@ class Core
   def run
     puts 'RubyCorp HR'
     puts "Manage RubyCorp's employees and positions\n"
-    main_menu
+    loop main_menu
   end
 
   private
 
   def main_menu
-    loop do
-      pp @db # DELET THIS
-      choice = Input.read_choice('Choose an action',
-                                 [
-                                   'Add a position', 'Add a person',
-                                   'Remove a position', 'Remove a person',
-                                   'Employ a person'
-                                 ])
-      activate_choice(choice)
-    end
+    choice = Input.read_choice("\nChoose an action",
+                               [
+                                 'Add a position', 'Add a person',
+                                 'Remove a position', 'Remove a person',
+                                 'Employ a person', 'List employees by name',
+                                 'List employees by position',
+                                 'List vacancies', 'Print salary statement',
+                                 'Exit'
+                               ])
+    activate_choice(choice)
   end
 
   def activate_choice(choice)
@@ -36,6 +36,11 @@ class Core
     when 2 then remove_position
     when 3 then remove_person
     when 4 then employ_person
+    when 5 then list_employees(:employee)
+    when 6 then list_employees(:position)
+    when 7 then list_vacancies
+    when 8 then print_statement
+    when 9 then exit
     end
   end
 
@@ -64,5 +69,23 @@ class Core
     c_position = Input.read_choice('Available positions',
                                    @db.positions_for_person(c_person))
     @db.employ_person(c_person, c_position) if c_position
+  end
+
+  def list_employees(sort_by)
+    puts 'List of employees:'
+    puts @db.generate_employee_list(sort_by)
+  end
+
+  def list_vacancies
+    puts 'List of vacancies:'
+    @db.vacancies.each_with_index do |data, index|
+      puts "#{index + 1}) #{data[:vacancy]} - #{data[:ammount]} available"
+    end
+  end
+
+  def print_statement
+    puts "Total salary expenses: $#{@db.total_salary}"
+    DAO.write_file('data/statement.txt', @db.salary_report)
+    puts 'Complete statement is saved to data/statement.txt'
   end
 end

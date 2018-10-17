@@ -37,8 +37,49 @@ class Database
     @people_registry
   end
 
+  def employees_with_positions(sort_field)
+    pairs = @people_registry.employed_people.map do |employee|
+      {
+        employee: employee,
+        position: @positions_registry.find_by_id(employee.position_id)
+      }
+    end
+    case sort_field
+    when :employee then pairs.sort_by { |pair| pair[:employee].full_name }
+    else pairs.sort_by { |pair| pair[sort_field].name }
+    end
+  end
+
   def unemployed_people
     @people_registry.unemployed_people
+  end
+
+  def vacancies
+    @positions_registry.vacancies.map do |position|
+      {
+        vacancy: position,
+        ammount: position.vacancies
+      }
+    end
+  end
+
+  def total_salary
+    @people_registry.employed_people.sum do |employee|
+      @positions_registry.find_by_id(employee.position_id).salary
+    end
+  end
+
+  def generate_employee_list(sort_method)
+    list = ''
+    employees_with_positions(sort_method).each_with_index do |pair, index|
+      list += "#{index + 1}) #{pair[:employee]}\n   #{pair[:position]}\n"
+    end
+    list
+  end
+
+  def salary_report
+    res = "Salary report:\n\nTotal salary: $#{total_salary}\n\n"
+    res + generate_employee_list(:employee)
   end
 
   def add_position(yaml)

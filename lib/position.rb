@@ -3,7 +3,7 @@ require_relative 'requirement'
 # Data-class that holds information about a single Position from a database.
 # Contains helper methods for changing vacancy status and checking availability
 class Position
-  attr_reader :id, :name, :requirements
+  attr_reader :id, :name, :department, :salary, :vacancies, :requirements
 
   def initialize(id, name, department, salary, vacancies, requirements)
     @id = id

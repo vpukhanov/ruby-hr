@@ -22,4 +22,12 @@ class PositionsRegistry < Registry
   def available_positions(person)
     find_all { |p| p.available_for?(person) }
   end
+
+  def find_by_id(id)
+    find { |p| p.id == id }
+  end
+
+  def vacancies
+    find_all { |p| p.vacancies > 0 }
+  end
 end

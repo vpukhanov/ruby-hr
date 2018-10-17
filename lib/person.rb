@@ -1,7 +1,8 @@
 # Data-class that holds information about a single Person from a database.
 # Contains helper methods for employment, unemployment and determining status
 class Person
-  attr_reader :id, :age, :education, :speciality, :position_id
+  attr_reader :id, :first_name, :second_name, :middle_name,
+              :age, :education, :speciality, :position_id
 
   def initialize(id,
                  first_name, second_name, middle_name,
@@ -42,8 +43,6 @@ class Person
     "#{full_name}, #{@age} y.o.#{edu_spec}"
   end
 
-  private
-
   def full_name
     if @middle_name
       "#{@first_name} #{@middle_name} #{@second_name}"
@@ -51,6 +50,8 @@ class Person
       "#{@first_name} #{@second_name}"
     end
   end
+
+  private
 
   def education_with_specialization
     edu_spec = ''

@@ -18,6 +18,10 @@ class PeopleRegistry < Registry
     each { |p| p.unemploy! if p.position_id == position_id }
   end
 
+  def employed_people
+    find_all { |p| !p.position_id.nil? }
+  end
+
   def unemployed_people
     find_all { |p| p.position_id.nil? }
   end
