@@ -31,6 +31,10 @@ class Registry
     @collection.push(item)
   end
 
+  def encode_with(coder)
+    coder.represent_seq(nil, @collection)
+  end
+
   private
 
   def next_id

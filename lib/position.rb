@@ -1,8 +1,11 @@
 require_relative 'requirement'
+require_relative 'hashable'
 
 # Data-class that holds information about a single Position from a database.
 # Contains helper methods for changing vacancy status and checking availability
 class Position
+  include Hashable
+  
   attr_reader :id, :name, :department, :salary, :vacancies, :requirements
 
   def initialize(options)

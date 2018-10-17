@@ -1,21 +1,24 @@
 require_relative 'people_registry'
 require_relative 'positions_registry'
+require_relative 'hashable'
 
 # Database is a layer between core of the application and data registries,
 # provides additional helper methods to filter and sort their data
 class Database
+  include Hashable
+
   def initialize(yaml)
-    @people_registry = PeopleRegistry.new(yaml)
-    @positions_registry = PositionsRegistry.new(yaml)
+    @people = PeopleRegistry.new(yaml)
+    @positions = PositionsRegistry.new(yaml)
   end
 
   def positions
-    @positions_registry
+    @positions
   end
 
   def positions_for_person(unemployed_index)
     person = unemployed_people[unemployed_index]
-    @positions_registry.available_positions(person)
+    @positions.available_positions(person)
   end
 
   def employ_person(per_unemployed_index, pos_available_index)
@@ -27,14 +30,14 @@ class Database
   end
 
   def people
-    @people_registry
+    @people
   end
 
   def employees_with_positions(sort_field)
-    pairs = @people_registry.employed_people.map do |employee|
+    pairs = @people.employed_people.map do |employee|
       {
         employee: employee,
-        position: @positions_registry.find_by_id(employee.position_id)
+        position: @positions.find_by_id(employee.position_id)
       }
     end
     case sort_field
@@ -44,11 +47,11 @@ class Database
   end
 
   def unemployed_people
-    @people_registry.unemployed_people
+    @people.unemployed_people
   end
 
   def vacancies
-    @positions_registry.vacancies.map do |position|
+    @positions.vacancies.map do |position|
       {
         vacancy: position,
         ammount: position.vacancies
@@ -57,8 +60,8 @@ class Database
   end
 
   def total_salary
-    @people_registry.employed_people.sum do |employee|
-      @positions_registry.find_by_id(employee.position_id).salary
+    @people.employed_people.sum do |employee|
+      @positions.find_by_id(employee.position_id).salary
     end
   end
 
@@ -76,22 +79,22 @@ class Database
   end
 
   def add_position(yaml)
-    @positions_registry.add_position_from_yaml(yaml)
+    @positions.add_position_from_yaml(yaml)
   end
 
   def add_person(yaml)
-    @people_registry.add_person_from_yaml(yaml)
+    @people.add_person_from_yaml(yaml)
   end
 
   def remove_position(index)
-    position = @positions_registry[index]
-    @positions_registry.delete_at(index)
-    @people_registry.unemploy_position(position.id)
+    position = @positions[index]
+    @positions.delete_at(index)
+    @people.unemploy_position(position.id)
   end
 
   def remove_person(index)
-    person = @people_registry[index]
-    @people_registry.delete_at(index)
-    @positions_registry.add_vacancy(person.position_id) if person.position_id
+    person = @people[index]
+    @people.delete_at(index)
+    @positions.add_vacancy(person.position_id) if person.position_id
   end
 end

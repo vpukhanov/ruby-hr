@@ -1,6 +1,10 @@
+require_relative 'hashable'
+
 # Data-class that holds information about the requirements for the specific
 # position. Contains helper methods to check if person satisfies the conditions
 class Requirement
+  include Hashable
+  
   def initialize(options)
     @age = options['age']
     @education = options['education']

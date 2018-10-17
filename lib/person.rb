@@ -1,6 +1,10 @@
+require_relative 'hashable'
+
 # Data-class that holds information about a single Person from a database.
 # Contains helper methods for employment, unemployment and determining status
 class Person
+  include Hashable
+
   attr_reader :id, :first_name, :second_name, :middle_name,
               :age, :education, :speciality, :position_id
 
