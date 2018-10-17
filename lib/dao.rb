@@ -13,7 +13,7 @@ module DAO
 
   def self.write_db(db)
     File.rename(DB_FILENAME, DB_FILENAME + '.bak') if File.exist?(DB_FILENAME)
-    File.write(DB_FILENAME, YAML.dump(db))
+    write_file(DB_FILENAME, YAML.dump(db))
   end
 
   def self.read_db_file
