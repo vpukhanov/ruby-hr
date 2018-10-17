@@ -5,13 +5,20 @@ require_relative 'database'
 # Data Access Object, gives an ability to read (and write) data
 # from and to the files
 module DAO
+  DB_FILENAME = 'data/data.yml'
+
   def self.read_db
     Database.new(YAML.safe_load(read_db_file))
   end
 
+  def self.write_db(db)
+    File.rename(DB_FILENAME, DB_FILENAME + '.bak') if File.exist?(DB_FILENAME)
+    File.write(DB_FILENAME, YAML.dump(db))
+  end
+
   def self.read_db_file
-    if File.exist?('data/data.yml')
-      db_file = File.new('data/data.yml')
+    if File.exist?(DB_FILENAME)
+      db_file = File.new(DB_FILENAME)
       db_text = db_file.read
       db_file.close
       db_text

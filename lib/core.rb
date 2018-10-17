@@ -40,7 +40,7 @@ class Core
     when 6 then list_employees(:position)
     when 7 then list_vacancies
     when 8 then print_statement
-    when 9 then exit
+    when 9 then finish
     end
   end
 
@@ -87,5 +87,11 @@ class Core
     puts "Total salary expenses: $#{@db.total_salary}"
     DAO.write_file('data/statement.txt', @db.salary_report)
     puts 'Complete statement is saved to data/statement.txt'
+  end
+
+  def finish
+    choice = Input.read_choice('Save changes?', %w[Yes No])
+    DAO.write_db(@db) if choice == 0
+    exit
   end
 end
