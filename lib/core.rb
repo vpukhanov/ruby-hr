@@ -91,7 +91,7 @@ class Core
 
   def finish
     choice = Input.read_choice('Save changes?', %w[Yes No])
-    DAO.write_db(@db) if choice == 0
+    DAO.write_db(@db) if choice.zero?
     exit
   end
 end

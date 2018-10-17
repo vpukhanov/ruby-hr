@@ -4,7 +4,7 @@ require_relative 'hashable'
 # position. Contains helper methods to check if person satisfies the conditions
 class Requirement
   include Hashable
-  
+
   def initialize(options)
     @age = options['age']
     @education = options['education']

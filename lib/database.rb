@@ -7,13 +7,11 @@ require_relative 'hashable'
 class Database
   include Hashable
 
+  attr_reader :people, :positions
+
   def initialize(yaml)
     @people = PeopleRegistry.new(yaml)
     @positions = PositionsRegistry.new(yaml)
-  end
-
-  def positions
-    @positions
   end
 
   def positions_for_person(unemployed_index)
@@ -27,10 +25,6 @@ class Database
 
     person.employ!(position.id)
     position.remove_vacancy!
-  end
-
-  def people
-    @people
   end
 
   def employees_with_positions(sort_field)

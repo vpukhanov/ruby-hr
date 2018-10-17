@@ -5,7 +5,7 @@ require_relative 'hashable'
 # Contains helper methods for changing vacancy status and checking availability
 class Position
   include Hashable
-  
+
   attr_reader :id, :name, :department, :salary, :vacancies, :requirements
 
   def initialize(options)
